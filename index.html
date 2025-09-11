@@ -714,35 +714,35 @@
         }
         
         .control-btn.up {
-            top: 0;
+            top: -100px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 15px 15px 5px 5px;
         }
         
         .control-btn.down {
-            bottom: 0;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 5px 5px 15px 15px;
         }
         
         .control-btn.left {
-            top: 50%;
+            top: calc(50% - 100px);
             left: 0;
             transform: translateY(-50%);
             border-radius: 15px 5px 5px 15px;
         }
         
         .control-btn.right {
-            top: 50%;
+            top: calc(50% - 100px);
             right: 0;
             transform: translateY(-50%);
             border-radius: 5px 15px 15px 5px;
         }
         
         .control-btn.pause {
-            top: 50%;
+            top: calc(50% - 100px);
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(255,193,7,0.8);
@@ -1783,7 +1783,7 @@
         // 游戏对象
         let playerCar = {
             x: 195,
-            y: 600,
+            y: 500,
             width: 45,
             height: 45,
             speed: 5
