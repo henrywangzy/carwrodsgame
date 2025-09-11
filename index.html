@@ -354,7 +354,7 @@
         }
         
         .game-title {
-            font-size: 28px;
+            font-size: 56px;
             font-weight: bold;
             background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
             -webkit-background-clip: text;
@@ -1396,7 +1396,7 @@
             }
             
             .game-title {
-                font-size: 20px;
+                font-size: 40px;
             }
             
             .select-group {
@@ -1486,9 +1486,9 @@
                     </select>
                     
                     <select class="select-box" id="speedSelect">
-                        <option value="60">🐢 低速模式 (60 km/h)</option>
-                        <option value="120">🚗 中速模式 (120 km/h)</option>
-                        <option value="180">🏎️ 高速模式 (180 km/h)</option>
+                        <option value="30">🐢 低速模式 (30 km/h)</option>
+                        <option value="40">🚗 中速模式 (40 km/h)</option>
+                        <option value="50">🏎️ 高速模式 (50 km/h)</option>
                     </select>
                 </div>
                 
@@ -1783,7 +1783,7 @@
         // 游戏对象
         let playerCar = {
             x: 195,
-            y: 500,
+            y: 400,  // 进一步调整初始位置
             width: 45,
             height: 45,
             speed: 5
@@ -2557,7 +2557,7 @@
                     backgroundMusicEnabled: true,
                     speechEnabled: true,  // 单词朗读始终开启
                     grade: 1,
-                    speed: 60
+                    speed: 30
                 }));
             }
             
@@ -2634,6 +2634,29 @@
             // 显示游戏界面
             showScreen('game');
             
+            // 立即初始化canvas和游戏状态
+            resizeCanvas();
+            
+            // 重置游戏状态
+            gameScore = 0;
+            gameHealth = 10;
+            collectedWords = [];
+            wrongWords = [];
+            wordTargets = [];
+            socialVehicles = [];
+            playerCar.x = gameCanvas.width / 2 - playerCar.width / 2;
+            playerCar.y = gameCanvas.height - 200; // 调整车的初始位置，确保在【上】按键上方
+            isPaused = false;
+            gameStartTime = Date.now();
+            lastWordSpawnTime = Date.now(); // 初始化单词生成时间
+            isSpeaking = false; // 重置朗读状态
+            canSpawnNewWord = true; // 允许生成第一个单词
+            
+            // 更新UI
+            updateScore();
+            updateHealth();
+            selectNewTargetWord();
+            
             // 播放背景音乐
             if (backgroundMusicEnabled && backgroundMusic) {
                 backgroundMusic.play().catch(e => {
@@ -2641,36 +2664,11 @@
                 });
             }
             
-            // 确保canvas已经正确初始化
-            setTimeout(() => {
-                resizeCanvas();
-                
-                // 重置游戏状态
-                gameScore = 0;
-                gameHealth = 10;
-                collectedWords = [];
-                wrongWords = [];
-                wordTargets = [];
-                socialVehicles = [];
-                playerCar.x = gameCanvas.width / 2 - playerCar.width / 2;
-                playerCar.y = gameCanvas.height - 100;
-                isPaused = false;
-                gameStartTime = Date.now();
-                lastWordSpawnTime = Date.now(); // 初始化单词生成时间
-                isSpeaking = false; // 重置朗读状态
-                canSpawnNewWord = true; // 允许生成第一个单词
-                
-                // 更新UI
-                updateScore();
-                updateHealth();
-                selectNewTargetWord();
-                
-                // 开始游戏循环
-                if (animationId) {
-                    cancelAnimationFrame(animationId);
-                }
-                gameLoop();
-            }, 100);
+            // 开始游戏循环
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            gameLoop();
         }
         
         function gameLoop() {
