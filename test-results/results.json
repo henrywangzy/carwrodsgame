@@ -1,0 +1,332 @@
+{
+  "config": {
+    "configFile": "E:\\claude\\3.carwordsgame\\playwright.config.js",
+    "rootDir": "E:/claude/3.carwordsgame/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "E:/claude/3.carwordsgame/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "E:/claude/3.carwordsgame/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      },
+      {
+        "outputDir": "E:/claude/3.carwordsgame/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "E:/claude/3.carwordsgame/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      },
+      {
+        "outputDir": "E:/claude/3.carwordsgame/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "E:/claude/3.carwordsgame/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      },
+      {
+        "outputDir": "E:/claude/3.carwordsgame/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "E:/claude/3.carwordsgame/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      },
+      {
+        "outputDir": "E:/claude/3.carwordsgame/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "E:/claude/3.carwordsgame/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 6,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "comprehensive-test.spec.js",
+      "file": "comprehensive-test.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "赛车单词游戏 - 完整功能测试和截图收集",
+          "file": "comprehensive-test.spec.js",
+          "line": 13,
+          "column": 6,
+          "specs": [
+            {
+              "title": "完整的游戏功能测试和截图收集",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 21225,
+                      "error": {
+                        "message": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"单词本\")').first()\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"btn btn-secondary\" onclick=\"showVocabulary()\">↵                        📚 单词本↵                  …</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    18 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+                        "stack": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"单词本\")').first()\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"btn btn-secondary\" onclick=\"showVocabulary()\">↵                        📚 单词本↵                  …</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    18 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at E:\\claude\\3.carwordsgame\\tests\\comprehensive-test.spec.js:142:25",
+                        "location": {
+                          "file": "E:\\claude\\3.carwordsgame\\tests\\comprehensive-test.spec.js",
+                          "column": 25,
+                          "line": 142
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 140 |\u001b[39m     \u001b[36mconst\u001b[39m vocabButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'button:has-text(\"单词本\")'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m;\u001b[39m\n \u001b[90m 141 |\u001b[39m     \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m vocabButton\u001b[33m.\u001b[39mcount() \u001b[33m>\u001b[39m \u001b[35m0\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 142 |\u001b[39m       \u001b[36mawait\u001b[39m vocabButton\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 143 |\u001b[39m       \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 144 |\u001b[39m       \n \u001b[90m 145 |\u001b[39m       \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mscreenshot({\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "E:\\claude\\3.carwordsgame\\tests\\comprehensive-test.spec.js",
+                            "column": 25,
+                            "line": 142
+                          },
+                          "message": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"单词本\")').first()\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"btn btn-secondary\" onclick=\"showVocabulary()\">↵                        📚 单词本↵                  …</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    18 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n\n  140 |     const vocabButton = page.locator('button:has-text(\"单词本\")').first();\n  141 |     if (await vocabButton.count() > 0) {\n> 142 |       await vocabButton.click();\n      |                         ^\n  143 |       await page.waitForTimeout(2000);\n  144 |       \n  145 |       await page.screenshot({\n    at E:\\claude\\3.carwordsgame\\tests\\comprehensive-test.spec.js:142:25"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "开始完整的游戏测试...\n"
+                        },
+                        {
+                          "text": "1. 加载首页...\n"
+                        },
+                        {
+                          "text": "页面标题: 赛车单词游戏 - 边玩边学英语\n"
+                        },
+                        {
+                          "text": "✓ 首页截图已保存\n"
+                        },
+                        {
+                          "text": "2. 测试选择功能...\n"
+                        },
+                        {
+                          "text": "✓ 年级选择器正常工作，选项数量: 6\n"
+                        },
+                        {
+                          "text": "✓ 速度选择器正常工作，选项数量: 3\n"
+                        },
+                        {
+                          "text": "3. 测试开始游戏...\n"
+                        },
+                        {
+                          "text": "找到\"开始比赛\"按钮\n"
+                        },
+                        {
+                          "text": "✓ 游戏启动成功\n"
+                        },
+                        {
+                          "text": "✓ 游戏界面截图已保存\n"
+                        },
+                        {
+                          "text": "4. 测试游戏画布...\n"
+                        },
+                        {
+                          "text": "✓ 游戏画布尺寸: 390x665\n"
+                        },
+                        {
+                          "text": "5. 测试玩家控制...\n"
+                        },
+                        {
+                          "text": "✓ 键盘控制测试完成\n"
+                        },
+                        {
+                          "text": "✓ 鼠标控制测试完成\n"
+                        },
+                        {
+                          "text": "6. 测试音频功能...\n"
+                        },
+                        {
+                          "text": "✓ 音频切换按钮正常工作\n"
+                        },
+                        {
+                          "text": "7. 测试暂停功能...\n"
+                        },
+                        {
+                          "text": "8. 访问词汇页面...\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-10T12:01:59.784Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "E:\\claude\\3.carwordsgame\\test-results\\comprehensive-test-赛车单词游戏---完整功能测试和截图收集-完整的游戏功能测试和截图收集-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "E:\\claude\\3.carwordsgame\\test-results\\comprehensive-test-赛车单词游戏---完整功能测试和截图收集-完整的游戏功能测试和截图收集-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "E:\\claude\\3.carwordsgame\\test-results\\comprehensive-test-赛车单词游戏---完整功能测试和截图收集-完整的游戏功能测试和截图收集-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "E:\\claude\\3.carwordsgame\\tests\\comprehensive-test.spec.js",
+                        "column": 25,
+                        "line": 142
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1cea411941ad1bd7a0d8-935ed2ce492e80b62c9c",
+              "file": "comprehensive-test.spec.js",
+              "line": 15,
+              "column": 3
+            },
+            {
+              "title": "检测潜在问题",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 7645,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "开始问题检测...\n"
+                        },
+                        {
+                          "text": "发现的错误数量: 0\n"
+                        },
+                        {
+                          "text": "发现的警告数量: 0\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-10T12:01:59.965Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1cea411941ad1bd7a0d8-1488ef3fdf1183543440",
+              "file": "comprehensive-test.spec.js",
+              "line": 232,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-10T12:01:58.717Z",
+    "duration": 23166.677000000003,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

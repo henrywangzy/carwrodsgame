@@ -1,0 +1,42 @@
+{
+  "name": "racing-word-game-tests",
+  "version": "1.0.0",
+  "description": "赛车单词游戏 Playwright 自动化测试套件",
+  "main": "tests/racing-word-game.spec.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install",
+    "test:codegen": "playwright codegen",
+    "test:mobile": "playwright test --project='Mobile Chrome'",
+    "test:desktop": "playwright test --project='chromium'",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "game",
+    "education",
+    "e2e",
+    "automation"
+  ],
+  "author": "Claude AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0",
+    "playwright-core": "^1.55.0"
+  },
+  "type": "commonjs"
+}

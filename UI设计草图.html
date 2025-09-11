@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛车单词游戏 - UI设计草图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        
+        .screen-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .screen-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #FF5252;
+        }
+        
+        .phone-frame {
+            width: 375px;
+            height: 667px;
+            margin: 0 auto;
+            border: 16px solid #333;
+            border-radius: 36px;
+            background: #000;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background: white;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 通用样式 */
+        .top-bar {
+            height: 60px;
+            background: linear-gradient(135deg, #FF5252, #FF1744);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF5252, #FF1744);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 23, 68, 0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #666;
+            border: 2px solid #ddd;
+        }
+        
+        /* 首页设计 */
+        .home-content {
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, #E3F2FD, #BBDEFB);
+            height: 100%;
+        }
+        
+        .logo-area {
+            margin: 20px 0;
+        }
+        
+        .car-icon {
+            font-size: 100px;
+            margin-bottom: 10px;
+        }
+        
+        .game-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .select-group {
+            margin: 20px 0;
+        }
+        
+        .select-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        /* 游戏界面设计 */
+        .game-screen {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-info {
+            background: linear-gradient(135deg, #FF5252, #FF1744);
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .game-btns {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .word-target {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        .score {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .speedometer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .game-canvas {
+            flex: 1;
+            background: linear-gradient(to bottom, #E3F2FD, #BBDEFB);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .road {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #90CAF9 0%, #64B5F6 50%, #42A5F5 100%);
+            perspective: 500px;
+        }
+        
+        .road-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 30%,
+                #FFC107 30%,
+                #FFC107 31%,
+                transparent 31%,
+                transparent 69%,
+                #FFC107 69%,
+                #FFC107 70%,
+                transparent 70%
+            );
+        }
+        
+        .car {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 60px;
+            background: #FF5252;
+            border-radius: 10px 10px 5px 5px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .word-sign {
+            position: absolute;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .word-sign-1 {
+            top: 100px;
+            left: 20%;
+        }
+        
+        .word-sign-2 {
+            top: 180px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .word-sign-3 {
+            top: 140px;
+            right: 20%;
+        }
+        
+        .game-controls {
+            height: 80px;
+            background: rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* 游戏结束页面 */
+        .game-over-content {
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .trophy-icon {
+            font-size: 80px;
+            margin: 20px 0;
+        }
+        
+        .final-score {
+            font-size: 48px;
+            color: #FF5252;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .stats {
+            background: #f5f5f5;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* 单词本页面 */
+        .vocabulary-header {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            padding: 15px;
+            color: white;
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+        }
+        
+        .word-list {
+            padding: 20px;
+        }
+        
+        .word-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .word-info {
+            flex: 1;
+        }
+        
+        .word-main {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .word-meaning {
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .word-example {
+            font-size: 14px;
+            color: #999;
+        }
+        
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 18px;
+        }
+        
+        /* 流程图 */
+        .flow-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .flow-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .flow-chart {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .flow-item {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 15px;
+            min-width: 150px;
+        }
+        
+        .flow-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .flow-arrow {
+            font-size: 30px;
+            color: #FF5252;
+        }
+        
+        .annotation {
+            background: #FFF3E0;
+            border-left: 4px solid #FFC107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .annotation h4 {
+            color: #F57C00;
+            margin-bottom: 10px;
+        }
+        
+        .annotation ul {
+            margin-left: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏁 赛车单词游戏 - UI设计草图</h1>
+            <p>游戏界面设计方案 · 移动端优先 · 响应式布局</p>
+        </div>
+        
+        <div class="screens-grid">
+            <!-- 首页设计 -->
+            <div class="screen-wrapper">
+                <div class="screen-title">1. 首页 (开始界面)</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="home-content" style="background: linear-gradient(to bottom, #E3F2FD, #BBDEFB); height: 100%; padding-top: 15px; display: flex; flex-direction: column;">
+                            <div class="logo-area" style="margin: 5px 0;">
+                                <div class="car-icon" style="font-size: 90px;">🏎️</div>
+                                <h2 class="game-title" style="margin: 5px 0; font-size: 24px;">赛车单词大冒险</h2>
+                            </div>
+                            
+                            <div class="select-group" style="margin-top: 15px;">
+                                <select class="select-box">
+                                    <option>选择年级：1年级</option>
+                                    <option>选择年级：2年级</option>
+                                    <option>选择年级：3年级</option>
+                                    <option>选择年级：4年级</option>
+                                    <option>选择年级：5年级</option>
+                                    <option>选择年级：6年级</option>
+                                </select>
+                                
+                                <select class="select-box">
+                                    <option>🐢 低速模式 (60 km/h)</option>
+                                    <option>🚗 中速模式 (120 km/h)</option>
+                                    <option>🏎️ 高速模式 (180 km/h)</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-primary" style="width: 100%; margin: 15px 0; color: white;">
+                                开始比赛
+                            </button>
+                            
+                            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 10px; background: white; color: #666; border: 2px solid #ddd;">
+                                📚 单词本
+                            </button>
+                            
+                            <button class="btn btn-secondary" style="width: 100%; background: linear-gradient(135deg, #4CAF50, #8BC34A); color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
+                                📖 单词浏览
+                            </button>
+                            
+                            <div style="margin-top: auto; padding: 20px 0; text-align: center; color: #666; font-size: 12px;">
+                                制作by公众号：泡泡妈学AI
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <h4>设计要点：</h4>
+                    <ul>
+                        <li>突出赛车主题，使用赛车图标和相关配色</li>
+                        <li>保留年级选择和难度选择功能</li>
+                        <li>按钮采用渐变色和阴影增强立体感</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 游戏界面设计 -->
+            <div class="screen-wrapper">
+                <div class="screen-title">2. 游戏界面 (核心玩法)</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="game-screen">
+                            <div class="game-info">
+                                <div class="word-target">
+                                    目标：Apple 苹果
+                                </div>
+                                <div class="game-btns">
+                                    <button style="background: none; border: none; font-size: 18px;">🎵</button>
+                                    <button style="background: none; border: none; font-size: 18px;">🏠</button>
+                                </div>
+                            </div>
+                            
+                            <!-- 得分显示在左侧 -->
+                            <div style="position: absolute; top: 70px; left: 20px; background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 10px; z-index: 10;">
+                                <span style="font-size: 14px; color: #333;">得分</span>
+                                <span style="font-size: 18px; font-weight: bold; color: #FF5252; margin-left: 5px;">150</span>
+                            </div>
+                            
+                            <div class="speedometer" style="position: absolute; top: 70px; right: 20px; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 15px; z-index: 10;">
+                                ⚡ 120 km/h
+                            </div>
+                            
+                            <div class="game-canvas" style="position: relative; background: linear-gradient(to bottom, #E3F2FD, #BBDEFB);">
+                                <!-- 竖向血条显示在右侧 -->
+                                <div style="position: absolute; top: 80px; right: 15px; background: rgba(255,255,255,0.8); padding: 10px 5px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; gap: 5px; z-index: 10;">
+                                    <span style="font-size: 14px;">❤️</span>
+                                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                                        <div style="width: 8px; height: 15px; background: #FF5252; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #FF5252; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #FF5252; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #FF5252; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #FF5252; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #FF5252; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #FF5252; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #FF5252; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #ddd; border-radius: 2px;"></div>
+                                        <div style="width: 8px; height: 15px; background: #ddd; border-radius: 2px;"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="road" style="height: 100%; background: linear-gradient(to bottom, #90CAF9 0%, #64B5F6 50%, #42A5F5 100%);">
+                                    <div class="road-lines"></div>
+                                </div>
+                                
+                                <!-- 目标单词（要吃的） - 位置分散 -->
+                                <div class="object-container" style="position: absolute; top: 200px; left: 30%; text-align: center;">
+                                    <div style="font-size: 40px;">🍎</div>
+                                    <div style="background: #4CAF50; color: white; padding: 3px 8px; border-radius: 5px; font-size: 12px; margin-top: -5px; box-shadow: 0 0 10px rgba(76,175,80,0.5);">
+                                        <div style="font-weight: bold;">Apple</div>
+                                        <div>苹果</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 干扰单词 - 与车辆分开 -->
+                                <div class="object-container" style="position: absolute; top: 280px; left: 65%; text-align: center;">
+                                    <div style="font-size: 40px;">🍌</div>
+                                    <div style="background: white; padding: 3px 8px; border-radius: 5px; font-size: 12px; margin-top: -5px;">
+                                        <div style="font-weight: bold;">Banana</div>
+                                        <div style="color: #666;">香蕉</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 社会车辆（要避开） - 朝前方向 -->
+                                <div class="object-container" style="position: absolute; top: 120px; left: 25%; text-align: center;">
+                                    <div style="font-size: 35px; transform: rotate(0deg);">🚗</div>
+                                </div>
+                                
+                                <div class="object-container" style="position: absolute; top: 150px; left: 55%; text-align: center;">
+                                    <div style="font-size: 35px; transform: rotate(0deg);">🚙</div>
+                                </div>
+                                
+                                <div class="object-container" style="position: absolute; top: 340px; left: 40%; text-align: center;">
+                                    <div style="font-size: 35px; opacity: 0.8; transform: rotate(0deg);">🚕</div>
+                                </div>
+                                
+                                <div class="car" style="bottom: 100px;">
+                                    <div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 80%; height: 15px; background: rgba(255,255,255,0.3); border-radius: 5px;"></div>
+                                </div>
+                                
+                                <!-- 半透明控制按钮叠层 - 紧凑布局 -->
+                                <div class="overlay-controls" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); width: 150px; height: 150px;">
+                                    <div style="position: relative; width: 100%; height: 100%;">
+                                        <!-- 上按钮 -->
+                                        <button class="overlay-btn" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); opacity: 0.15; background: rgba(255,255,255,0.8); border: 2px solid rgba(255,255,255,0.5); border-radius: 15px 15px 5px 5px; width: 50px; height: 50px; font-size: 20px;">▲</button>
+                                        <!-- 左按钮 -->
+                                        <button class="overlay-btn" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%); opacity: 0.15; background: rgba(255,255,255,0.8); border: 2px solid rgba(255,255,255,0.5); border-radius: 15px 5px 5px 15px; width: 50px; height: 50px; font-size: 20px;">◀</button>
+                                        <!-- 中间暂停按钮 -->
+                                        <button class="overlay-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.2; background: rgba(255,193,7,0.8); border: 2px solid rgba(255,193,7,0.5); border-radius: 50%; width: 50px; height: 50px; font-size: 18px; z-index: 1;">❚❚</button>
+                                        <!-- 右按钮 -->
+                                        <button class="overlay-btn" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%); opacity: 0.15; background: rgba(255,255,255,0.8); border: 2px solid rgba(255,255,255,0.5); border-radius: 5px 15px 15px 5px; width: 50px; height: 50px; font-size: 20px;">▶</button>
+                                        <!-- 下按钮 -->
+                                        <button class="overlay-btn" style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); opacity: 0.15; background: rgba(255,255,255,0.8); border: 2px solid rgba(255,255,255,0.5); border-radius: 5px 5px 15px 15px; width: 50px; height: 50px; font-size: 20px;">▼</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <h4>游戏机制升级：</h4>
+                    <ul>
+                        <li>🎨 淡蓝色路面背景，更清新活泼</li>
+                        <li>❤️ 竖向血条在右侧：10格血量，撞车扣血</li>
+                        <li>🚗 社会车辆：同向行驶，速度不一</li>
+                        <li>🍎 单词与车辆分离：避免同时碰撞</li>
+                        <li>🎮 自由横向移动：不限制车道</li>
+                        <li>📊 屏幕限制：最多3辆车+2个单词</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 游戏结束页面 -->
+            <div class="screen-wrapper">
+                <div class="screen-title">3. 游戏结束页面</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="game-over-content" style="padding: 20px; height: 100%; position: relative; overflow-y: auto;">
+                            <!-- 游戏结果和得分合并展示 -->
+                            <div style="text-align: center; margin-bottom: 20px;">
+                                <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 10px;">
+                                    <div style="font-size: 40px;">🏁</div>
+                                    <div style="font-size: 40px;">🏆</div>
+                                </div>
+                                <div style="font-size: 18px; color: #333; font-weight: bold; margin-bottom: 5px;">游戏结束</div>
+                                <div style="color: #666; font-size: 13px; margin-bottom: 10px;">继续努力，你一定可以的！</div>
+                                <!-- 得分整合到这里 -->
+                                <div style="background: linear-gradient(135deg, #FF5252, #FF1744); color: white; padding: 10px 20px; border-radius: 10px; display: inline-block;">
+                                    <div style="font-size: 11px; opacity: 0.9;">最终得分</div>
+                                    <div style="font-size: 32px; font-weight: bold;">1250</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 成就统计（缩小） -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px;">
+                                <div style="background: #f5f5f5; padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 20px;">📚</div>
+                                    <div style="font-size: 18px; font-weight: bold; color: #FF5252;">18</div>
+                                    <div style="font-size: 11px; color: #666;">学会单词</div>
+                                </div>
+                                <div style="background: #f5f5f5; padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 20px;">🎯</div>
+                                    <div style="font-size: 18px; font-weight: bold; color: #FF5252;">85%</div>
+                                    <div style="font-size: 11px; color: #666;">正确率</div>
+                                </div>
+                                <div style="background: #f5f5f5; padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 20px;">⚡</div>
+                                    <div style="font-size: 18px; font-weight: bold; color: #FF5252;">180</div>
+                                    <div style="font-size: 11px; color: #666;">最高速度</div>
+                                </div>
+                                <div style="background: #f5f5f5; padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 20px;">⏱️</div>
+                                    <div style="font-size: 18px; font-weight: bold; color: #FF5252;">05:32</div>
+                                    <div style="font-size: 11px; color: #666;">游戏时间</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 学习回顾（缩小） -->
+                            <div style="background: #fff3e0; padding: 8px; border-radius: 8px; margin-bottom: 100px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 6px; align-items: center;">
+                                    <h4 style="color: #f57c00; margin: 0; font-size: 13px;">📖 本次学习回顾</h4>
+                                    <div style="display: flex; gap: 3px;">
+                                        <button style="padding: 2px 6px; background: #FF5252; color: white; border: none; border-radius: 4px; font-size: 10px;">已学会</button>
+                                        <button style="padding: 2px 6px; background: white; color: #666; border: 1px solid #ddd; border-radius: 4px; font-size: 10px;">待加强</button>
+                                    </div>
+                                </div>
+                                <div style="color: #666; font-size: 11px;">
+                                    恭喜！你已经掌握了 <span style="color: #FF5252; font-weight: bold;">18</span> 个新单词
+                                </div>
+                            </div>
+                            
+                            </div>
+                            
+                            <!-- 底部三个操作按钮（绝对定位在屏幕内） -->
+                            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px;">
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <button style="flex: 1; padding: 12px; background: #FF5252; color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: bold; box-shadow: 0 3px 10px rgba(255,82,82,0.3);">
+                                        🔄 再来一局
+                                    </button>
+                                    <button style="flex: 1; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: bold; box-shadow: 0 3px 10px rgba(76,175,80,0.3);">
+                                        📖 单词浏览
+                                    </button>
+                                </div>
+                                <button style="width: 100%; padding: 12px; background: white; color: #666; border: 1px solid #ddd; border-radius: 10px; font-size: 14px;">
+                                    🏠 返回主界面
+                                </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <h4>结果展示（参考GameOver组件）：</h4>
+                    <ul>
+                        <li>游戏结果动画和鼓励文案</li>
+                        <li>四宫格成就统计展示</li>
+                        <li>学习回顾切换功能</li>
+                        <li>三个清晰的操作按钮</li>
+                        <li>整体布局更紧凑美观</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 单词本页面 -->
+            <div class="screen-wrapper">
+                <div class="screen-title">4. 单词本页面</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="vocabulary-header">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <button style="background: none; border: none; color: white; font-size: 20px;">←</button>
+                                <h3>单词本</h3>
+                                <select style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px; border-radius: 5px;">
+                                    <option>1年级</option>
+                                </select>
+                            </div>
+                            <div class="search-bar">
+                                <input type="text" class="search-input" placeholder="搜索单词...">
+                            </div>
+                        </div>
+                        
+                        <div class="word-list">
+                            <div class="word-card">
+                                <div class="word-info">
+                                    <div class="word-main">Apple 🏆</div>
+                                    <div class="word-meaning">/ˈæpl/ 苹果</div>
+                                    <div class="word-example">
+                                        <div style="color: #333;">An apple a day keeps the doctor away.</div>
+                                        <div style="color: #666; font-size: 13px;">一天一个苹果，医生远离我。</div>
+                                    </div>
+                                </div>
+                                <button class="play-btn">▶️</button>
+                            </div>
+                            
+                            <div class="word-card">
+                                <div class="word-info">
+                                    <div class="word-main">Car 🏁</div>
+                                    <div class="word-meaning">/kɑːr/ 汽车</div>
+                                    <div class="word-example">
+                                        <div style="color: #333;">I drive a red car to school.</div>
+                                        <div style="color: #666; font-size: 13px;">我开红色汽车去学校。</div>
+                                    </div>
+                                </div>
+                                <button class="play-btn">▶️</button>
+                            </div>
+                            
+                            <div class="word-card">
+                                <div class="word-info">
+                                    <div class="word-main">Book</div>
+                                    <div class="word-meaning">/bʊk/ 书</div>
+                                    <div class="word-example">
+                                        <div style="color: #333;">I love reading books every night.</div>
+                                        <div style="color: #666; font-size: 13px;">我喜欢每晚读书。</div>
+                                    </div>
+                                </div>
+                                <button class="play-btn">▶️</button>
+                            </div>
+                        </div>
+                        
+                        <div style="position: absolute; bottom: 10px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px;">
+                            <div style="display: flex; gap: 10px;">
+                                <button style="padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; background: white;">上一页</button>
+                                <button style="padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; background: white;">下一页</button>
+                            </div>
+                            <span style="color: #999; font-size: 14px;">1/10页</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <h4>功能特点：</h4>
+                    <ul>
+                        <li>🏆 表示已掌握，🏁 表示学习中</li>
+                        <li>支持搜索和年级筛选</li>
+                        <li>点击播放按钮朗读单词</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 单词浏览页面设计 -->
+        <div class="screens-grid" style="margin-top: 40px;">
+            <div class="screen-wrapper">
+                <div class="screen-title">5. 单词浏览页面（新增功能）</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <!-- 顶部导航 -->
+                        <div style="background: linear-gradient(135deg, #4CAF50, #8BC34A); padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center;">
+                            <button style="background: none; border: none; color: white; font-size: 20px;">←</button>
+                            <h3 style="margin: 0;">单词浏览</h3>
+                            <select style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px 10px; border-radius: 5px;">
+                                <option>1年级</option>
+                                <option>2年级</option>
+                                <option>3年级</option>
+                            </select>
+                        </div>
+                        
+                        <!-- 单词卡片主体（参考WordCard样式） -->
+                        <div style="padding: 20px; height: calc(100% - 60px); overflow-y: auto;">
+                            <!-- 卡片容器 -->
+                            <div style="background: white; border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                <!-- 单词和音标头部 -->
+                                <div style="text-align: center; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                                    <h1 style="font-size: 36px; color: #333; margin: 0 0 8px 0; font-weight: bold;">Customize</h1>
+                                    <div style="color: #666; font-size: 16px; font-style: italic;">/ˈkʌs.tə.maɪz/</div>
+                                </div>
+                                
+                                <!-- 中文释义部分 -->
+                                <div style="padding: 15px 0; border-bottom: 1px solid #eee;">
+                                    <div style="color: #999; font-size: 12px; margin-bottom: 8px;">中文释义</div>
+                                    <div style="background: #4CAF50; color: white; display: inline-block; padding: 6px 16px; border-radius: 15px; font-size: 18px; font-weight: bold;">
+                                        定制
+                                    </div>
+                                    <button style="float: right; background: none; border: none; font-size: 18px; color: #4CAF50;">🔊</button>
+                                </div>
+                                
+                                <!-- 例句部分 -->
+                                <div style="padding: 15px 0; border-bottom: 1px solid #eee;">
+                                    <div style="color: #999; font-size: 12px; margin-bottom: 8px;">例句</div>
+                                    <div style="background: #f5f5f5; border-left: 3px solid #4CAF50; padding: 12px; border-radius: 5px;">
+                                        <div style="font-size: 15px; color: #333; margin-bottom: 6px; line-height: 1.5;">
+                                            You can customize this module for your project.
+                                        </div>
+                                        <div style="font-size: 13px; color: #666; line-height: 1.5;">
+                                            你可以为你的项目定制这个模块。
+                                        </div>
+                                    </div>
+                                    <button style="float: right; background: none; border: none; font-size: 18px; color: #4CAF50; margin-top: 8px;">🔊</button>
+                                </div>
+                                
+                                <!-- 学习状态 -->
+                                <div style="padding: 15px 0;">
+                                    <div style="color: #999; font-size: 12px; margin-bottom: 10px;">学习状态</div>
+                                    <div style="display: flex; gap: 10px;">
+                                        <button style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 8px; background: white; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                            <span>⚪</span><span style="font-size: 13px;">未学</span>
+                                        </button>
+                                        <button style="flex: 1; padding: 8px; border: 2px solid #FFC107; border-radius: 8px; background: #FFF8E1; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                            <span>🟡</span><span style="font-size: 13px; color: #F57C00;">学习中</span>
+                                        </button>
+                                        <button style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 8px; background: white; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                            <span>🟢</span><span style="font-size: 13px;">已掌握</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- 词源记忆 -->
+                                <div style="background: #FFF3E0; padding: 12px; border-radius: 8px; margin-top: 15px;">
+                                    <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
+                                        <span style="color: #F57C00;">💡</span>
+                                        <span style="color: #F57C00; font-size: 13px; font-weight: bold;">记忆小贴士</span>
+                                    </div>
+                                    <div style="color: #795548; font-size: 13px; line-height: 1.5;">
+                                        custom（习俗）+ -ize（使...化）= 使之定制化
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 底部导航 -->
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #eee; padding: 15px; display: flex; justify-content: space-between;">
+                            <button style="padding: 10px 20px; background: #f5f5f5; border: none; border-radius: 20px; color: #666;">
+                                ⭐ 收藏
+                            </button>
+                            <button style="padding: 10px 20px; background: #f5f5f5; border: none; border-radius: 20px; color: #666;">
+                                📋 分享
+                            </button>
+                            <div style="display: flex; gap: 10px;">
+                                <button style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 20px;">
+                                    ← 上一个
+                                </button>
+                                <button style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 20px;">
+                                    下一个 →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="annotation">
+                    <h4>单词浏览功能特点：</h4>
+                    <ul>
+                        <li>📱 卡片式展示，一屏一词</li>
+                        <li>🎓 顶部年级选择，快速切换</li>
+                        <li>⭐ 学习状态标记（未学/学习中/已掌握）</li>
+                        <li>🔊 完整朗读功能</li>
+                        <li>💡 记忆提示帮助理解</li>
+                        <li>⬅️➡️ 上下切换浏览</li>
+                        <li>⭐ 收藏和分享功能</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 游戏流程图 -->
+        <div class="flow-section">
+            <h2 class="flow-title">游戏交互流程</h2>
+            <div class="flow-chart">
+                <div class="flow-item">
+                    <div class="flow-icon">🏠</div>
+                    <div>首页</div>
+                    <div style="color: #999; font-size: 14px; margin-top: 5px;">选择年级和难度</div>
+                </div>
+                
+                <div class="flow-arrow">→</div>
+                
+                <div class="flow-item">
+                    <div class="flow-icon">🏁</div>
+                    <div>开始游戏</div>
+                    <div style="color: #999; font-size: 14px; margin-top: 5px;">控制赛车收集单词</div>
+                </div>
+                
+                <div class="flow-arrow">→</div>
+                
+                <div class="flow-item">
+                    <div class="flow-icon">🏆</div>
+                    <div>游戏结束</div>
+                    <div style="color: #999; font-size: 14px; margin-top: 5px;">查看成绩和统计</div>
+                </div>
+                
+                <div class="flow-arrow">↓</div>
+                
+                <div class="flow-item">
+                    <div class="flow-icon">📚</div>
+                    <div>单词本</div>
+                    <div style="color: #999; font-size: 14px; margin-top: 5px;">复习学过的单词</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #f5f5f5; border-radius: 15px;">
+                <h3 style="color: #333; margin-bottom: 15px;">核心交互说明</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div>
+                        <h4 style="color: #FF5252; margin-bottom: 10px;">🎮 控制方式</h4>
+                        <ul style="color: #666; margin-left: 20px;">
+                            <li>PC端：A/D键或方向键</li>
+                            <li>移动端：左右滑动或按钮</li>
+                            <li>空格键或刹车按钮减速</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #FF5252; margin-bottom: 10px;">🎯 游戏目标</h4>
+                        <ul style="color: #666; margin-left: 20px;">
+                            <li>收集正确的目标单词</li>
+                            <li>避开错误单词和障碍</li>
+                            <li>保持连击获得高分</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #FF5252; margin-bottom: 10px;">📈 难度递增</h4>
+                        <ul style="color: #666; margin-left: 20px;">
+                            <li>速度逐渐加快</li>
+                            <li>单词密度增加</li>
+                            <li>干扰项增多</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #FF5252; margin-bottom: 10px;">🏆 奖励机制</h4>
+                        <ul style="color: #666; margin-left: 20px;">
+                            <li>连击加成系统</li>
+                            <li>速度道具</li>
+                            <li>护盾保护</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//e/claude/snackwordsgame/**)",
+      "Read(//e/claude/usefulpart/WordCard/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
