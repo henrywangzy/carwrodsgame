@@ -217,15 +217,16 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 15px 20px;
+            padding: 10px 20px; /* 减少顶部内边距 */
             animation: fadeIn 0.5s ease-out;
             position: relative;
             z-index: 1;
+            overflow-y: auto; /* 添加滚动 */
         }
         
         .logo-area {
             text-align: center;
-            margin: 20px 0;
+            margin: 10px 0; /* 减少顶部间距 */
             animation: slideInUp 0.6s ease-out;
             position: relative;
         }
@@ -338,8 +339,8 @@
         }
         
         .car-logo {
-            font-size: 100px;
-            margin-bottom: 10px;
+            font-size: 90px; /* 稍微减小 */
+            margin-bottom: 5px; /* 减少底部间距 */
             animation: carBounce 3s ease-in-out infinite;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
             position: relative;
@@ -354,13 +355,13 @@
         }
         
         .game-title {
-            font-size: 45px;
+            font-size: 38px; /* 减小字体 */
             font-weight: bold;
             background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin: 10px 0;
+            margin: 5px 0; /* 减少上下间距 */
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             animation: shimmer 3s ease-in-out infinite;
             position: relative;
@@ -372,11 +373,11 @@
         }
         
         .select-group {
-            margin-top: 20px;
+            margin-top: 12px; /* 减少间距 */
             animation: slideInUp 0.7s ease-out;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px; /* 减少间隙 */
         }
         
         .select-box {
@@ -422,10 +423,10 @@
         }
         
         .button-group {
-            margin-top: 25px;
+            margin-top: 12px; /* 减少间距 */
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px; /* 减少间隙 */
             animation: slideInUp 0.8s ease-out;
         }
         
@@ -460,7 +461,7 @@
         
         .home-footer {
             margin-top: auto;
-            padding: 20px 0;
+            padding: 12px 0; /* 减少内边距 */
             text-align: center;
             animation: fadeIn 1s ease-out;
             position: relative;
@@ -1422,20 +1423,37 @@
         }
         
         @media (max-height: 700px) {
+            .logo-area {
+                margin: 5px 0;
+            }
+            
             .car-logo {
-                font-size: 70px;
+                font-size: 65px;
+                margin-bottom: 0;
             }
             
             .game-title {
-                font-size: 32px;
+                font-size: 28px;
+                margin: 3px 0;
             }
             
             .select-group {
-                margin-top: 10px;
+                margin-top: 8px;
+                gap: 8px;
             }
             
             .button-group {
-                margin-top: 10px;
+                margin-top: 8px;
+                gap: 8px;
+            }
+            
+            .home-footer {
+                padding: 10px 0;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
             }
             
             /* 优化分页控制在小屏幕下的显示 */
@@ -1455,6 +1473,50 @@
         }
         
         /* 超小屏幕优化 */
+        @media (max-height: 600px) {
+            .logo-area {
+                margin: 2px 0;
+            }
+            
+            .car-logo {
+                font-size: 55px;
+                margin-bottom: 0;
+            }
+            
+            .game-title {
+                font-size: 24px;
+                margin: 2px 0;
+            }
+            
+            .select-group {
+                margin-top: 5px;
+                gap: 6px;
+            }
+            
+            .button-group {
+                margin-top: 5px;
+                gap: 6px;
+            }
+            
+            .select-box {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .home-footer {
+                padding: 8px 0;
+            }
+            
+            .publisher-info {
+                font-size: 11px;
+            }
+        }
+        
         @media (max-height: 600px) {
             .pagination, .browse-footer {
                 padding: 10px 12px;
@@ -1562,13 +1624,7 @@
             
             <div class="home-content">
                 <div class="logo-area">
-                    <div class="car-with-word">
-                        <div class="word-fuel">
-                            <span class="fuel-icon">⛽</span>
-                            <span class="fuel-word">WORD</span>
-                        </div>
-                        <div class="car-logo">🏎️</div>
-                    </div>
+                    <div class="car-logo">🏎️</div>
                     <h1 class="game-title">赛车单词大冒险</h1>
                 </div>
                 
