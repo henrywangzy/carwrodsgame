@@ -604,6 +604,7 @@
             flex: 1;
             position: relative;
             overflow: hidden;
+            max-height: calc(100vh - 250px); /* 确保留出空间给控制按钮 */
         }
         
         #gameCanvas {
@@ -1925,7 +1926,7 @@
         // 游戏对象
         let playerCar = {
             x: 195,
-            y: 500,  // 调整到更贴近控制按钮的位置
+            y: 300,  // 初始位置设置在屏幕正中央
             width: 45,
             height: 45,
             speed: 5
@@ -2787,7 +2788,7 @@
             wordTargets = [];
             socialVehicles = [];
             playerCar.x = gameCanvas.width / 2 - playerCar.width / 2;
-            playerCar.y = gameCanvas.height - 120; // 调整车的初始位置，正好在【上】按键正前方
+            playerCar.y = gameCanvas.height / 2 - playerCar.height / 2; // 设置车的初始位置在屏幕正中央
             isPaused = false;
             gameStartTime = Date.now();
             lastWordSpawnTime = Date.now(); // 初始化单词生成时间
@@ -2832,10 +2833,10 @@
                         playerCar.x = Math.min(gameCanvas.width - playerCar.width, playerCar.x + playerCar.speed);
                         break;
                     case 'up':
-                        playerCar.y = Math.max(100, playerCar.y - playerCar.speed); // 允许汽车移动到更上方
+                        playerCar.y = Math.max(20, playerCar.y - playerCar.speed); // 限制顶部边界
                         break;
                     case 'down':
-                        playerCar.y = Math.min(gameCanvas.height - playerCar.height - 10, playerCar.y + playerCar.speed);
+                        playerCar.y = Math.min(gameCanvas.height - playerCar.height - 20, playerCar.y + playerCar.speed); // 限制底部边界
                         break;
                 }
             }
