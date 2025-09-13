@@ -460,25 +460,16 @@
         }
         
         .home-footer {
-            margin-top: auto;
-            padding: 12px 0; /* 减少内边距 */
+            margin-top: 10px; /* 紧跟在单词浏览按钮下方 */
+            padding: 0;
             text-align: center;
             animation: fadeIn 1s ease-out;
             position: relative;
         }
         
-        /* 路面装饰 */
+        /* 路面装饰 - 隐藏 */
         .road-decoration {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 60px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            pointer-events: none;
+            display: none;
         }
         
         .road-line {
@@ -517,27 +508,28 @@
         .publisher-info {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px 25px;
-            background: rgba(255,255,255,0.15);
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.12);
             backdrop-filter: blur(10px);
-            border-radius: 25px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
             animation: slideInUp 0.8s ease-out 0.3s both;
             position: relative;
             z-index: 1;
+            font-size: 12px;
         }
         
         .publisher-text {
-            font-size: 13px;
-            color: rgba(255,255,255,0.95);
+            font-size: 12px;
+            color: rgba(255,255,255,0.9);
             font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            letter-spacing: 0.3px;
         }
         
         .star-icon {
-            font-size: 16px;
+            font-size: 14px;
             animation: twinkle 2s ease-in-out infinite;
         }
         
@@ -1448,7 +1440,8 @@
             }
             
             .home-footer {
-                padding: 10px 0;
+                margin-top: 8px;
+                padding: 0;
             }
             
             .btn {
@@ -1509,7 +1502,8 @@
             }
             
             .home-footer {
-                padding: 8px 0;
+                margin-top: 5px;
+                padding: 0;
             }
             
             .publisher-info {
@@ -1657,13 +1651,8 @@
                     </button>
                 </div>
                 
+                <!-- 制作信息紧跟在按钮后 -->
                 <div class="home-footer">
-                    <!-- 路面装饰 -->
-                    <div class="road-decoration">
-                        <div class="road-line"></div>
-                        <div class="road-line"></div>
-                        <div class="road-line"></div>
-                    </div>
                     <div class="publisher-info">
                         <span class="star-icon">⭐</span>
                         <span class="publisher-text">制作by公众号：泡泡妈学AI</span>
